@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario delle Sorprese</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        .box {
+            width: 150px;
+            height: 150px;
+            background-color: #f1f1f1;
+            display: inline-block;
+            margin: 10px;
+            padding: 20px;
+            border: 2px solid #ccc;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
+        }
+        .box:hover {
+            background-color: #e2e6ea;
+            transform: scale(1.05);
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .opened {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Calendario delle Sorprese</h1>
+    <div id="boxes"></div>
+
+    <script>
+        const surprises = [
+            { time: "8:00", link: "https://www.youtube.com/watch?v=NCzgzO1y7yQ" },
+            { time: "9:00", link: "https://example.com/messaggio-vocale" },
+            { time: "10:00", link: "https://example.com/poesia" },
+            { time: "11:00", link: "https://example.com/playlist" },
+            { time: "12:00", link: "https://example.com/foto-ricordo" },
+            { time: "13:00", link: "https://example.com/video-divertente" },
+            { time: "14:00", link: "https://example.com/esperienza-virtuale" },
+            { time: "15:00", link: "https://example.com/messaggio-gratitudine" },
+            { time: "16:00", link: "https://example.com/baci-perugina" },
+            { time: "17:00", link: "https://example.com/canzone-personalizzata" },
+            { time: "18:00", link: "https://example.com/lettera-amore" },
+            { time: "19:00", link: "https://example.com/scatola-ricordi" },
+            { time: "20:00", link: "https://example.com/momento-relax" },
+            { time: "21:00", link: "https://example.com/messaggio-intimo" },
+            { time: "22:00", link: "https://example.com/video-amici" },
+            { time: "23:00", link: "https://example.com/momento-rilassante" },
+            { time: "24:00", link: "https://example.com/buonanotte" }
+        ];
+
+        const currentHour = new Date().getHours();
+
+        function createBoxes() {
+            const boxesContainer = document.getElementById('boxes');
+            for (let i = 0; i < surprises.length; i++) {
+                const box = document.createElement('div');
+                box.className = 'box';
+                box.innerHTML = `<a href="#">${surprises[i].time}</a>`;
+                box.onclick = () => openBox(i);
+                if (i + 8 <= currentHour) {
+                    box.classList.add('opened');
+                    box.innerHTML = `<a href="${surprises[i].link}" target="_blank">${surprises[i].time}</a>`;
+                }
+                boxesContainer.appendChild(box);
+            }
+        }
+
+        function openBox(index) {
+            if (index + 8 > currentHour) {
+                alert("Non puoi aprire questa casella prima dell'ora!");
+                return;
+            }
+            const boxes = document.getElementsByClassName('box');
+            boxes[index].innerHTML = `<a href="${surprises[index].link}" target="_blank">${surprises[index].time}</a>`;
+            boxes[index].classList.add('opened');
+        }
+
+        createBoxes();
+    </script>
+</body>
+</html>
